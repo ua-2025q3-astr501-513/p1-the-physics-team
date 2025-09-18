@@ -1,0 +1,70 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: p1
+      id: p1
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: p1
+        setup-command: pip install -e .
+        command: pytest -s .github/autograding/test-p1.py
+        timeout: 10
+        max-score: 1
+    - name: p2
+      id: p2
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: p2
+        setup-command: pip install -e .
+        command: pytest -s .github/autograding/test-p2.py
+        timeout: 10
+        max-score: 1
+    - name: p3
+      id: p3
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: p3
+        setup-command: pip install -e .
+        command: pytest -s .github/autograding/test-p3.py
+        timeout: 10
+        max-score: 1
+    - name: p4
+      id: p4
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: p4
+        setup-command: pip install -e .
+        command: pytest -s .github/autograding/test-p4.py
+        timeout: 10
+        max-score: 1
+    - name: p5
+      id: p5
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: p5
+        setup-command: pip install -e .
+        command: pytest -s .github/autograding/test-p5.py
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        P1_RESULTS: "${{steps.p1.outputs.result}}"
+        P2_RESULTS: "${{steps.p2.outputs.result}}"
+        P3_RESULTS: "${{steps.p3.outputs.result}}"
+        P4_RESULTS: "${{steps.p4.outputs.result}}"
+        P5_RESULTS: "${{steps.p5.outputs.result}}"
+      with:
+        runners: p1,p2,p3,p4,p5
