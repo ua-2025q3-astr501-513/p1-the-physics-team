@@ -1,0 +1,247 @@
+- Data Representation and Errors
+
+- Numerical Linear Algebra
+
+  - Use PCA to make the most effective background model to subtract
+    from polluted image data
+
+  - Implement and compare iterative solvers (Jacobi, Gauss-Seidel,
+    Conjugate Gradient) for large sparse systems.
+
+  - Create a simulation of a 2D Ising model using a Monte-Carlo
+    method.  The Metropolis-Hastings algorithm is used most commonly
+    for this problem, but we could try to use one of the more advanced
+    algorithms that work better near the critical point, where MH
+    doesn't perform well.
+
+  - Use Singular Value Decomposition (SVD) denoising for astronomical
+    images.
+
+  - use Gaia DR3 data to compute the velocity dispersion tensor for
+    stars of the solar neighborhood and study the principal axes of
+    motion.
+
+  - Numerically efficient solver of mode matrices from complex scalar
+    field theories subject to cosmological influence.
+
+  - Generate a rapid matrix multiplication for the combination of
+    rotation, shear, inclination, and slit position.
+
+  - Advance or improve efficiency of current machine learning
+    emulators to obtain priors on galaxy bias and HOD parameters.
+
+  - Using linear algebra to build a cross-correlation function, which
+    will be used to measure the radial velocities from 2+ spectra of
+    the same star.
+
+  - Simulate the 2D Ising Model as an array of spin up and spin down
+    particles.
+
+- Fourier Transform and Spectral Analysis
+
+  - Model a point spread function and add/subtract it to image data
+    using convolution
+
+  - Use Fourier transforms to analyze periodic signals in
+    astrophysical data (e.g., pulsars, stellar oscillations).
+
+  - Use Fourier transforms to study X-ray variability during black
+    hole flares.
+
+  - Compare the computational efficiency between different methods of
+    calculating the galaxy power spectrum in a mock galaxy catalog.
+
+  - Using spectral analysis and decomposition to characterize the
+    large- and fine-scale convection in solar data from SOHO and SDO.
+
+  - Apply Fourier-based spectral analysis to mock Aspera CGM data in
+    order to detect faint absorption features from ionized gas and
+    improve signal extraction from noisy backgrounds.
+
+  - Analyze periodicity of the phase-resolved light curve of a white
+    dwarf–brown dwarf binary.  Measure rotation period and phase
+    shifts in different wavelength bins, and apply PCA to separate the
+    WD and BD signals.
+
+  - Using publicly available raw stellar data (such as from MAST),
+    apply signal processing techniques (denoising, normalization,
+    filtering) to analyze spectra
+
+  - Develop an algorithm to recognize the common shape of rotation
+    curves of emission lines (e.g., [O II]) in tripe
+    slit-configuration spectra taken by MMT/Binospec.
+
+  - Develop a way to do fast fourier transform for spectrum analysis
+    with the new JWST data to check for red shift.
+
+  - Use the Fast Fourier Transform to analyze and filter publicly
+    avaiable pulsar timing data from NANOGrav to isolate periodic
+    signals.
+
+  - Use FFT to find the power spectra of signals to determine
+    unexpected patterns in spatial frequencies within image
+    combination software pipeline, and apply appropriate corrections.
+
+  - Using FFTs on radial velocity points to find prominent periodic
+    signals.
+
+  - Detect exoplanet transits in light curves using FFT to identify
+    periodic dimming, and test robustness against noise.
+
+  - Compute matter power spectrum from mock density field using FFT
+
+- Interpolation and Extrapolation
+
+  - Use interpolation methods to detect and remove artificial cosmic
+    ray hits from JWST imaging.
+
+  - Use Polynomial Interpolation and Extrapolation to develop a method
+    for integrating emission line flux with non-Gaussian shapes.
+
+  - Fitting to some data that are available via telescopes, give an
+    empirical initial mass function for the Milky Way Galaxy.
+
+  - Use interpolation methods to fill in gaps in noisy or irregularly
+    sampled light curves and compare accuracy across methods.
+
+- Numerical and Automatic Derivatives
+
+  - Develop a fast code that finds local minima of functions.  this
+    can be done by implementing the gradient descent using automatic
+    differentiation.
+
+- Numerical Integration of Functions
+
+  - generate a synthetic stellar population from an IMF, compute its
+    measurable quantities (such as luminosity function, mass to light
+    ratio, etc.) and compare for different IMFs (chabrier, salpeter,
+    Krouppa, etc.).
+
+  - Implement numerical integration techniques to find the number
+    density of galaxies at high redshift from the galaxy luminosity
+    function.
+
+  - Use numerical integration methods to calculate the total gas mass
+    in the circumgalactic medium by integrating simulated density and
+    temperature profiles from cosmological models.
+
+  - Using Newtons laws of motion, simulate motion through different
+    integration methods and determine the orbital period.  Compare
+    this period to the period found by Keplers laws.  Determine errors
+    and compare across different method
+
+  - Develop a fast algorithm that computes the lensing kernel of a
+    source distribution (weak lensing).  This is to compute
+    convergence maps from ray-traced N-body simulations in a fast way.
+
+- Root Finding and Optimization Methods
+
+  - Fit orbital parameters of a binary star minimizing error between
+    modeled and actual lightcurves.
+
+  - Mirage at Speedway Blvd: model the temperature and pressure
+    distribution of the air above hot asphalt in summer, then trace
+    car headlights by solving ODEs and using root-finding to simulate
+    the mirage effect, optionally validating against real
+    observations."
+
+  - Comparison of optimization techniques in galaxy profile
+    simulations.  Synthesize a basic galaxy image and fit a model to
+    the image.  Compare different optimization methods to minimize
+    errors.
+
+  - Develop an exposure time calculator for CMOS detectors by
+    optimizing an SNR model with root-finding methods.
+
+  - Fit the linear growth factor to mock structure growth data and
+    estimate cosmological parameters.  Compare resutls to
+    Fisher-matrix forecasts and assess how the chosen methods impact
+    parameter constraints.
+
+  - Apply optimization methods to different cosmological models to
+    constrain unknown cosmological parameters and improve posteriors.
+
+- ODE Integrators
+
+  - Integrate the radiative transfer equation for any stellar
+    temperature profile to estimate limb darkening
+
+  - Create a simple simulation tracking the motion of bodies in a
+    solar system.  This could, for example, be used to look at
+    asteroids being caught in Lagrange points.
+
+  - Take a look at the stellar structure equations.  Solve the
+    relevant ODEs (hydrostatic equilibrium, mass continuity, etc.)
+    numerically to get values of the temperature, density, pressure,
+    etc. of the star as a function of radius.
+
+  - build an N-body simulation for a toy model of a small (few tens of
+    stars) stellar cluster.
+
+  - Develop a fast integrator to solve for Gross-Pitaevskii equation
+    of ALP (cosine potential) Bose-Einstein Condensate under
+    gravitational self-interaction up to degree six.
+
+  - Simulating a simple 2D model of a shear layer in a rotating star
+    to model the Kevin Helmholtz instability, with the possible
+    addition of a simple nuclear reaction network to investigate
+    nucleosynthesis.
+
+  - Simulate galaxy evolution by integrating coupled ODEs that track
+    gas inflows, star formation, and feedback, and compare stability
+    of different integrators on long-term galaxy growth.
+
+  - Develop a code that solves the N-body problem.  If time allows,
+    introduce cosmology dependence.
+
+  - Simulate a N-body system in a 3D space, then use it to do some fun
+    things (TBD; I think groups can determine what they want to do.)
+
+  - Simulate multiple objects (such as a planet around a star or a
+    binary system) orbiting each other in space using laws of
+    gravitation.
+
+  - Simulate stellar structure by solving various differential
+    equations, such as hydrostatic equilibrium, mass continuity,
+    energy transfer, and/or equations of state.
+
+  - Implement and compare methods for solving the growth equation of
+    linear matter perturbations using different cosmologies
+
+- PDE Solvers
+
+  - Solve the heat equation using finite-difference methods and
+    compare explicit vs. implicit schemes.
+
+  - Generate efficient numerical solver of EFEs under Galileon
+    theories or general modified gravity models.
+
+  - Solving a simplified model of heat/thermal diffusion for an
+    accretion disk.
+
+  - PINN vs. traditional PDE solvers: compare computational
+    performance and accuracy of physics-informed neural networks
+    (PINNs) against classical numerical solvers.
+
+  - Develop an algorithm to solve for PDE for calculating the halo
+    mass functiom, and incoporate into cosmology dependence.
+
+  - (This probably is too hard) Simulate a cloud of gas collapsing
+    into a protostar.
+
+  - Use a finite volume scheme for the heat equation to model
+    simplified thermal evolution of stellar interiors
+
+  - Numerical relativity, 3D puncture initial data for one BH
+    (Baumgarte & Shapiro Appendix B, existing program), implement
+    higher accuracy finite difference method
+
+  - Numerical relativity, 3D puncture initial data for one BH with
+    linear momentum (Baumgarte & Shapiro Appendix B, existing
+    program), extend to BH with angular momentum
+
+  - Numerical relativity, 1D non-linear BSSN gauge evolution for
+    Schwarzschild BH with trumpet slicing (new program)
+
+  - Using PDE solvers to make a simple model of solar system
+    formation, starting at the planetary nebula stage.
