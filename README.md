@@ -1,55 +1,89 @@
 # ASTR 513 Mid-Term Project
 
-Welcome to the repository for the **Mid-Term Project** in ASTR 513.
-This project is worth **20 points** and is designed to let you apply
-numerical techniques that we covered in the classes.
-You are recommended to form teams of 3 to 6 people.
+Welcome to the repository of the **Mid-Term Project** for ASTR 513.
+This project is worth **20 points** and gives you the opportunity to
+apply the numerical techniques we have covered in the course so far.
 
-Presentations will be scheduled for October 13th or 15th.
-The final project package, including presentation slides and any
-supporting materials, must be submitted on the day of the presentation
-by 11:59pm (Arizona time).
+You are recommended to work in teams of 3 to 6 students.
+To form team, come up with a unique team name and put it in this
+[GitHub Classroom link](https://classroom.github.com/a/nqfiwWTG).
 
-Code submission is handled by GitHub classroom.
-Please use [this link](https://classroom.github.com/a/nqfiwWTG) to
-join a project.
+## Timeline & Deliverables
 
-The included file "ideas.yaml" is a compilation of proposed ideas,
-covering areas that are covered in the first half of ASTR 513.
-You may pick one of these ideas and find other students who have
-common interests to form team.
-Examples of previous projects inlcude
-[exoplanet statistics](https://github.com/ua-2024q3-astr513/ASTRSTATS513_final).
+* Prsentation dates:
+  October 13th or 15th
+* Submission deadline:
+  By 11:59pm (Arizona tgime) on the day of your presentation
+* Submission platform: GitHub Classroom
 
-A formal write-up is not required, but you must:
+Your final submission should include:
 
-1. Submit well-documented source code with clear comments through
-   GitHub classroom.
-   Provide docstrings and update this README to explain how to run
-   your project and discusses any dependencies.
+* Project code (inside the `src/` directory of this git repository)
+* Documentation (inside the `doc/` directory)
+* Presentation materials (slides or Jupyter notebook, also version
+  controlled with this git repository)
 
-2. Deliver a short (about 10 minutes) presentation on October 13th or
-   15th, using either slides (standard presentation) or a Jupyter
-   notebook (like our class), to describe the problem you tackled and
-   how you solved it.
-   Show your numerical methods, data or results, and any plots or
-   tables that shed light on your findings.
-   Each team member should be ready to discuss their contributions.
+Only **one submission per team** is needed.
 
-Your project will be graded out of 20 points with the following
-general breakdown:
-i) originality and clarity of the idea,
-ii) quality of the solution,
-iii) thoroughness of the documentation, and
-iv) effectiveness of the presentation.
+**Late submissions may not be accepted. Please plan ahead.**
 
-Project is handled by GitHub classroom as well, where multiple
-students can create a single repository to track codes.
-Only one submission (code + documentation) per team is needed.
-Be sure to list all group members.
+## Project Ideas
 
-Late submissions may not be accepted, so plan ahead and start
-early.
+The file `doc/ideas.yaml` contains a compilation of topics from
+homework set \#1.
+Please use this list to help you look for other students with similar
+interests and form teams.
 
-We look forward to seeing your creativity and thoroughness as you
-tackle a meaningful computational physics problem!
+Example from a past project:
+[Exoplanet Statistics](https://github.com/ua-2024q3-astr513/ASTRSTATS513_final).
+
+## Requirements
+
+### 1. Code
+
+* Submit well-documented, runnable source code.
+* Include docstrings and inline comments.
+* Update this `README.md` file to explain:
+  * How to install and run your project
+  * Any dependencies or data required
+
+### 2. Presentation
+
+* Deliver a ~ 15 minute presentation on your project.
+* You may use either:
+  * Slides (traditional format), or
+  * A Jupyter notebook (similar to our class style).
+
+Your presentation should:
+* clearly explain the problem you tackled;
+* show the numerical techniques you applied;
+* present results with relevant plots, tables; or figures
+* highlight your findings and insights.
+
+Each team member should be prepared to discuss their contributions.
+
+## Grading (20 points total)
+
+Projects will be graded based on the following criteria:
+1. Originality & clarity of the idea
+2. Quality of the solution (numerical methods, implementation,
+   correctness)
+3. Thoroughness of documentation (code comments, docstrings, README)
+4. Effectiveness of presentation (clarity, structure, visualizations,
+   teamwork)
+
+## Collaboration & GitHub Use
+
+Projects are managed through GitHub Classroom.
+* Multiple students can share a single repository.
+  You can join by putting your unique team name in this
+  [GitHub Classroom link](https://classroom.github.com/a/nqfiwWTG).
+* Use GitHub to track progress, manage code, and collaborate.
+* Only one final submission per team is needed.
+
+## Final Note
+
+This project is your chance to be creative, apply what you have
+learned so far, and work collaboratively on a meaningful computational
+astrophysics problem.
+We look forward to your results!
