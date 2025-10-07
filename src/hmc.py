@@ -15,16 +15,17 @@ def Kinetic(p, mass):
 
 def Leapfrog(q0, p0, dt, Nsteps, L, Mass):
     q = q0
-    p = p0 - 0.5 * dt * dUdq(q, L)
-
+    p = p0 - 0.5 * dt * dUdq(q, L) # Half-step
     minv = jnp.linalg.inv(Mass)
-
-    for _ in range(Nsteps):
-        q = q + dt * minv @ p
-        p = p - dt * dUdq(q, L)
     
-    p = p + 0.5 * dt * dUdq(q, L)
-    return q, p
+    for _ in range(Nsteps - 1):
+        q = q + dt * minv @ p      # Full-step
+        p = p - dt * dUdq(q, L)    # Full-step 
+    
+    q = q + dt * minv @ p          # Final full-step
+    p = p - 0.5 * dt * dUdq(q, L)  # Final half-step
+    
+    return q, -p
 
 def Sampler(q0, dt, Nsteps, L, Mass):
     p0 = jnp.array(np.random.multivariate_normal(np.zeros_like(q0), Mass))
@@ -41,10 +42,12 @@ def Sampler(q0, dt, Nsteps, L, Mass):
     else:
         return q0
     
-def Hmc(q0, Nsamples, dt, Nsteps, L, Mass):
-    samples = [q0]
-
-    for i in tqdm(range(Nsamples)):
-        samples.append(Sampler(samples[-1], dt, Nsteps, L, Mass))
+def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0):
+    q_current = q0
+    samples = []
+    for i in tqdm(range(Nsamples + burnin)):
+        q_current = Sampler(q_current, dt, Nsteps, L, Mass)
+        samples.append(q_current)
     
-    return np.array(samples)
+    # Remove burn-in samples
+    return np.array(samples[burnin:])
