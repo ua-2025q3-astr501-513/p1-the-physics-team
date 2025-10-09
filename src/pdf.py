@@ -1,6 +1,8 @@
 import jax.numpy as jnp
 from jax.scipy.special import gamma
 
+# 2D distribution functions
+
 def Gaussian(q):
     #cov = jnp.array([[1, 0.5], [0.5, 1]])
     covinv = jnp.array([[4./3., -2./3.],[-2./3., 4./3.]])
@@ -53,6 +55,8 @@ def Donut(q, R=2.0, r=0.5):
     prob = jnp.exp(-0.5 * (distance_from_ring / sigma)**2)
     
     return prob
+
+# 1D distribution functions
 
 def Lognormal(q, mu=0.0, sigma=1.0, shift=0.0):
     """
@@ -116,6 +120,37 @@ def Gaussian1D(q, mu=0.0, sigma=1.0):
     prob = jnp.exp(-0.5 * ((x - mu) / sigma)**2)
     
     return prob
+
+def DoubleGaussian1D(q, mu1=-1.0, mu2=1.0, sigma1=0.5, sigma2=0.5):
+    """
+    A combination of two 1D Gaussian (normal) probability distributions.
+    
+    Parameters
+    ----------
+    q : array-like, shape (1,) or scalar
+        Position in 1D space.
+    mu1 : float
+        Mean of the first distribution.
+    mu2 : float
+        Mean of the second distribution.
+    sigma1 : float
+        Standard deviation of the first distribution.
+    sigma2 : float
+        Standard deviation of the second distribution.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """
+    # Extract scalar if q is an array
+    x = q[0] if hasattr(q, '__len__') else q
+    
+    # Gaussian probability density (unnormalized is fine for HMC)
+    peak1 = jnp.exp(-0.5 * ((x - mu1) / sigma1)**2)
+    peak2 = jnp.exp(-0.5 * ((x - mu2) / sigma2)**2)
+    
+    return peak1 + peak2
 
 def Dirichlet(q):
     x = q
