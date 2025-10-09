@@ -1,7 +1,37 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nqfiwWTG)
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=20647788&assignment_repo_type=AssignmentRepo)
-# ASTR 513 Mid-Term Project
 
+Mid-Term Project
+==============
+ASTR 513: Statistical and Computational Methods in Astrophysics
+
+Instructors: Chi-kwan Chan, Shuo Kong
+
+Wednesday, October 15, 2025
+
+## Contributors
+
+### The Physics Team ⚛️
+
+**Allison Colarelli**, **Jiyun Di**, **Iván Espinoza Bustamante**, **Heidi Liu**, and **Sebastian Sage**
+
+(in no particular order)
+
+
+## Required dependencies
+*    JAX: `pip install --upgrade "jax[cpu]"`
+*    Numpy: `pip install numpy`
+*    Matplotlib: `pip install matplotlib`
+*    Corner plotting from getdist: `pip install getdist`
+
+## How to install 
+Just like HW1, this project should have been a pip-installable Python package; i.e., `pip install -e .` should work.
+
+## How to run
+Working on it...
+
+Mid-Term Project Tasks
+==============
 Welcome to the repository of the **Mid-Term Project** for ASTR 513.
 This project is worth **20 points** and gives you the opportunity to
 apply the numerical techniques we have covered in the course so far.
