@@ -52,3 +52,66 @@ def Donut(q, R=2.0, r=0.5):
     prob = jnp.exp(-0.5 * (distance_from_ring / sigma)**2)
     
     return prob
+
+def Lognormal(q, mu=0.0, sigma=1.0, shift=0.0):
+    """
+    A shifted lognormal probability distribution.
+    
+    Parameters
+    ----------
+    q : array-like, shape (1,) or scalar
+        Position in 1D space.
+    mu : float
+        Mean of the underlying normal distribution (log-scale location).
+    sigma : float
+        Standard deviation of the underlying normal distribution (log-scale).
+    shift : float
+        Shift parameter. The distribution is defined for q > shift.
+        Effectively shifts the support of the lognormal.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """
+    # Extract scalar if q is an array
+    x = q[0] if hasattr(q, '__len__') else q
+    
+    # Shifted value
+    y = x + shift
+    
+    # Lognormal is only defined for y > 0
+    # Return very small probability if outside support
+    prob = jnp.where(
+        y > 0,
+        (1.0 / y) * jnp.exp(-0.5 * ((jnp.log(y) - mu) / sigma)**2),
+        1e-10  # Small value instead of zero to avoid log(0) in Potential
+    )
+    
+    return prob
+
+def Gaussian1D(q, mu=0.0, sigma=1.0):
+    """
+    A 1D Gaussian (normal) probability distribution.
+    
+    Parameters
+    ----------
+    q : array-like, shape (1,) or scalar
+        Position in 1D space.
+    mu : float
+        Mean of the distribution.
+    sigma : float
+        Standard deviation of the distribution.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """
+    # Extract scalar if q is an array
+    x = q[0] if hasattr(q, '__len__') else q
+    
+    # Gaussian probability density (unnormalized is fine for HMC)
+    prob = jnp.exp(-0.5 * ((x - mu) / sigma)**2)
+    
+    return prob
