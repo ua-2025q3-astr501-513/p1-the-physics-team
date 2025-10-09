@@ -1,5 +1,6 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nqfiwWTG)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=20647788&assignment_repo_type=AssignmentRepo)
+<a href="https://colab.research.google.com/drive/1JZXhBC_uQc7xqfw7SXSJTG9MGkMSPzg7?usp=sharing">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" width="180" />
+</a>
 
 Mid-Term Project
 ==============
@@ -32,6 +33,9 @@ Working on it...
 
 Mid-Term Project Tasks
 ==============
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nqfiwWTG)
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=20647788&assignment_repo_type=AssignmentRepo)
+
 Welcome to the repository of the **Mid-Term Project** for ASTR 513.
 This project is worth **20 points** and gives you the opportunity to
 apply the numerical techniques we have covered in the course so far.
