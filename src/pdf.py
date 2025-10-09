@@ -18,3 +18,37 @@ def sumGaussian(q):
     b = jnp.array([-3, 0])
     c = jnp.array([-5, 6])
     return jnp.exp(-0.5 * (q-a) @ covinv @ (q-a)) + jnp.exp(-0.5 * (q-b) @ covinv @ (q-b)) + jnp.exp(-0.5 * (q-c) @ covinv @ (q-c))
+
+def Donut(q, R=2.0, r=0.5):
+    """
+    A donut (torus) shaped 2D probability distribution.
+    
+    Parameters
+    ----------
+    q : array-like, shape (2,)
+        Position [x, y] in 2D space.
+    R : float
+        Radius from origin to center of donut tube (major radius).
+    r : float
+        Radius of the donut tube itself (minor radius).
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """
+    x, y = q[0], q[1]
+    
+    # Distance from origin
+    distance_from_origin = jnp.sqrt(x**2 + y**2)
+    
+    # Distance from the donut's center ring
+    distance_from_ring = jnp.abs(distance_from_origin - R)
+    
+    # Gaussian falloff from the ring
+    # Higher density near the ring (distance_from_ring ≈ 0)
+    # Lower density away from the ring
+    sigma = r
+    prob = jnp.exp(-0.5 * (distance_from_ring / sigma)**2)
+    
+    return prob
