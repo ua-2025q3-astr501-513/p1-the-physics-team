@@ -126,3 +126,11 @@ def Dirichlet(q):
     B = jnp.prod(gamma(a))/gamma(a0)
 
     return prod/B
+
+def GammaDist(q):
+    x, y = q
+    k = 2.0
+    theta = 1.0
+    if (x <= 0) or (y <= 0):
+        return 1e-300  # effectively zero probability
+    return (x ** (k - 1)) * jnp.exp(-x / theta) * (y ** (k - 1)) * jnp.exp(-y / theta)
