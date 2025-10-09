@@ -4,20 +4,17 @@ import jax.numpy as jnp
 from jax import grad
 from tqdm.auto import tqdm
 
-
 def Potential(q, L):
-	"""
+    """
     Compute the potential energy U(q) = -ln(L(q)) in JAX function form.
-
     Parameters
     ----------
     q : array-like
         Position, in parameter space.
     L : callable
         Function of a probability distribution P(q) related to Hamiltonian H(q, p).
-		This is what we want to sample from. We hoped to use "P" for parameter 
-		name, but this will cause ambiguity with the Potential name.
-
+        This is what we want to sample from. We hoped to use "P" for parameter
+        name, but this will cause ambiguity with the Potential name.
     Returns
     -------
     float
