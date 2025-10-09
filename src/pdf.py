@@ -1,5 +1,4 @@
 import jax.numpy as jnp
-from jax.scipy.special import gamma
 
 # 2D distribution functions
 
@@ -151,16 +150,6 @@ def DoubleGaussian1D(q, mu1=-1.0, mu2=1.0, sigma1=0.5, sigma2=0.5):
     peak2 = jnp.exp(-0.5 * ((x - mu2) / sigma2)**2)
     
     return peak1 + peak2
-
-def Dirichlet(q):
-    x = q
-    a = jnp.array([0.5, 0.5])
-
-    a0 = jnp.sum(a)
-    prod = jnp.prod(x**(a-1))
-    B = jnp.prod(gamma(a))/gamma(a0)
-
-    return prod/B
 
 def GammaDist(q):
     x, y = q
