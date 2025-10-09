@@ -134,3 +134,32 @@ def GammaDist(q):
     if (x <= 0) or (y <= 0):
         return 1e-300  # effectively zero probability
     return (x ** (k - 1)) * jnp.exp(-x / theta) * (y ** (k - 1)) * jnp.exp(-y / theta)
+
+def Chisq(q, k=4.0):
+    """
+    A chi-squared probability distribution.
+    
+    Parameters
+    ----------
+    q : array-like, shape (1,) or scalar
+        Position in 1D space.
+    k : float
+        Degrees of freedom (must be positive).
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """
+    # Extract scalar if q is an array
+    x = q[0] if hasattr(q, '__len__') else q
+    
+    # Chi-squared is only defined for x > 0
+    # Return very small probability if outside support
+    prob = jnp.where(
+        x > 0,
+        jnp.power(x, k/2.0 - 1.0) * jnp.exp(-x / 2.0),
+        1e-10  # Small value instead of zero to avoid log(0) in Potential
+    )
+    
+    return prob
