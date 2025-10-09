@@ -118,8 +118,8 @@ def Gaussian1D(q, mu=0.0, sigma=1.0):
     return prob
 
 def Dirichlet(q):
-    x = q[0]
-    a = q[1]
+    x = q
+    a = jnp.array([0.5, 0.5])
 
     a0 = jnp.sum(a)
     prod = jnp.prod(x**(a-1))
