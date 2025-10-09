@@ -23,34 +23,8 @@ def Potential(q, L):
     return -jnp.log(L(q))
 
 
-# Same as: dUdq = grad(Potential, argnums=0)
-def dUdq(q, L):
-    """
-	Just = ∂U/∂q.
-	This is the project inspiration of implementing HMC with JAX, 
-	which was introduced in Lecture 7 (Mon, Sep 22, 2025): 
-	https://ua-2025q3-astr501-513.github.io/notes-5/#autodiff-with-vectorization-and-jit-in-python-using-jax
 
-	Parameters
-    ----------
-    q : array-like
-        Position, in parameter space.
-    L : callable
-		Function of a probability distribution P(q) related to Hamiltonian H(q, p).
-	    This is what we want to sample from. We hoped to use "P" for parameter 
-	    name, but this will cause ambiguity with the Potential name.
-	grad : module
-		Imported module from jax. "argnums=0" means that we only take the derivative wrt q
-		
-	Returns 
-	-------
-	float
-		Partial derivative evaluated at (q, L).
-	"""
-    return grad(Potential, argnums=0)(q, L)
-
-
-def Kinetic(p, mass):
+def Kinetic(p, minv):
     """
     Compute the kinetic energy K(p) = 0.5 * (p^T M^{-1} p) in JAX function form.
 
@@ -68,11 +42,10 @@ def Kinetic(p, mass):
     float
         Kinetic energy corresponding to momentum p.
     """
-    minv = jnp.linalg.inv(mass) # = M^{-1}
     return 0.5 * p @ minv @ p   # = 0.5 * (p^T M^{-1} p)
 
 
-def Leapfrog(q0, p0, dt, Nsteps, L, Mass):
+def Leapfrog(q0, p0, dt, Nsteps, L, Massinv):
     """
     A leapfrog integrator solving for Hamiltonian (H) in the kick-drift-kick scheme.
 	This was introduced in Lecture 9 (Mon, Sep 29, 2025):
@@ -99,24 +72,24 @@ def Leapfrog(q0, p0, dt, Nsteps, L, Mass):
         (Position, momentum) tuple (q, p) giving the new position and momentum after integration.
     """
     q = q0
+    dUdq = grad(Potential, argnums=0)
 	
     # Half-step momentum update
     p = p0 - 0.5 * dt * dUdq(q, L) # Half-step
-    minv = jnp.linalg.inv(Mass)
     
     # Full steps
     for _ in range(Nsteps - 1):
-        q = q + dt * minv @ p      # Full-step
+        q = q + dt * Massinv @ p      # Full-step
         p = p - dt * dUdq(q, L)    # Full-step 
     
     # Final position and half momentum update
-    q = q + dt * minv @ p          # Final full-step
+    q = q + dt * Massinv @ p          # Final full-step
     p = p - 0.5 * dt * dUdq(q, L)  # Final half-step
     
     return q, -p  # TODO: Why negative?
 
 
-def Sampler(q0, dt, Nsteps, L, Mass):
+def Sampler(q0, dt, Nsteps, L, Mass, Massinv):
     """
     HMC sampler using leapfrog integrator.
 
@@ -142,15 +115,15 @@ def Sampler(q0, dt, Nsteps, L, Mass):
     p0 = jnp.array(np.random.multivariate_normal(np.zeros_like(q0), Mass))
 
 	# Compute new (q, p) after given N steps from the leapfrog integration
-    q, p = Leapfrog(q0, p0, dt, Nsteps, L, Mass)
+    q, p = Leapfrog(q0, p0, dt, Nsteps, L, Massinv)
 
     # Compute initial and final energies
 	# Reason: In fact, in numerical calculation, we cannot compute the true path of (q, p)
 	#         with the constant Hamiltonian/energy. Check what the difference is below. 
     Uinit  = Potential(q0, L)
     Ufinal = Potential(q, L)
-    Kinit  = Kinetic(p0, Mass)
-    Kfinal = Kinetic(p, Mass)
+    Kinit  = Kinetic(p0, Massinv)
+    Kfinal = Kinetic(p, Massinv)
 
     # Metropolis acceptance criterion
     # Reason: If ideally, our computed (q_new, p_new) has the same energy, we are
@@ -190,11 +163,10 @@ def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0):
     """
     q_current = q0
     samples = []
+    minv = jnp.linalg.inv(Mass) # = M^{-1}
     for i in tqdm(range(Nsamples + burnin)):
-        q_current = Sampler(q_current, dt, Nsteps, L, Mass)
+        q_current = Sampler(q_current, dt, Nsteps, L, Mass, minv)
         samples.append(q_current)
     
     # Remove burn-in samples
     return np.array(samples[burnin:])
-
-
