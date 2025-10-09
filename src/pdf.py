@@ -1,4 +1,5 @@
 import jax.numpy as jnp
+from jax.scipy.special import gamma
 
 def Gaussian(q):
     #cov = jnp.array([[1, 0.5], [0.5, 1]])
@@ -115,3 +116,13 @@ def Gaussian1D(q, mu=0.0, sigma=1.0):
     prob = jnp.exp(-0.5 * ((x - mu) / sigma)**2)
     
     return prob
+
+def Dirichlet(q):
+    x = q[0]
+    a = q[1]
+
+    a0 = jnp.sum(a)
+    prod = jnp.prod(x**(a-1))
+    B = jnp.prod(gamma(a))/gamma(a0)
+
+    return prod/B
