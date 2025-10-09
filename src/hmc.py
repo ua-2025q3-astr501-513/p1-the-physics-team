@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import jax.numpy as jnp
 from jax import grad
 from tqdm.auto import tqdm
+from joblib import Parallel, delayed
+
 
 def Potential(q, L):
     """
@@ -170,3 +172,60 @@ def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0):
     
     # Remove burn-in samples
     return np.array(samples[burnin:])
+
+def Hmc_parallel(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0, Nwalkers=16):
+    """
+    Main Hamiltonian Monte Carlo (HMC) sampling.
+
+    Parameters
+    ----------
+    q0 : array-like
+        Initial position (a parameter vector).
+    Nsamples : int
+        Number of samples.
+    dt : float
+        Time size for every leapfrog integration step.
+    Nsteps : int
+        Number of leapfrog steps per sample.
+    L : callable
+        Likelihood distribution function of position/parameter.
+    Mass : array-like
+        Mass matrix.
+    burnin : int, optional
+        Number of initial samples to discard. Default is 0.
+
+    Returns
+    -------
+    np.ndarray
+        Array of accepted samples after burn-in.
+    """
+        
+    minv = jnp.linalg.inv(Mass) # = M^{-1}
+    def run_chain(q0, Nsamples, dt, Nsteps, L, Mass, minv, burnin, show_pbar=False, total_samples=None):
+        q_current = q0
+        samples = []
+        
+        pbar = tqdm(total=total_samples) if show_pbar else None
+        
+        for _ in range(Nsamples + burnin):
+            q_current = Sampler(q_current, dt, Nsteps, L, Mass, minv)
+            samples.append(q_current)
+            if pbar is not None:
+                pbar.update(Nwalkers)
+        
+        if pbar is not None:
+            pbar.close()
+        
+        return np.array(samples[burnin:])
+
+    total_samples = (Nsamples//Nwalkers + burnin) * Nwalkers
+
+    results = Parallel(n_jobs=Nwalkers) \
+        (delayed(run_chain)(q0, Nsamples//Nwalkers, dt, Nsteps, L, Mass, minv, burnin, 
+                            show_pbar=(i==0), total_samples=total_samples) \
+        for i in range(Nwalkers))
+
+    samples = np.concatenate(results)
+
+    # Remove burn-in samples
+    return samples
