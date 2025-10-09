@@ -41,7 +41,7 @@ This project is worth **20 points** and gives you the opportunity to
 apply the numerical techniques we have covered in the course so far.
 
 You are recommended to work in teams of 3 to 6 students.
-To form team, come up with a unique team name and put it in this
+To form a team, come up with a unique team name and put it in this
 [GitHub Classroom link](https://classroom.github.com/a/nqfiwWTG).
 
 ## Timeline & Deliverables
@@ -49,7 +49,7 @@ To form team, come up with a unique team name and put it in this
 * Presentation dates:
   October 13th or 15th
 * Submission deadline:
-  By 11:59pm (Arizona tgime) on the day of your presentation
+  By 11:59 pm (Arizona time) on the day of your presentation
 * Submission platform: GitHub Classroom
 
 Your final submission should include:
@@ -61,7 +61,7 @@ Your final submission should include:
 
 Only **one submission per team** is needed.
 
-**Late submissions may not be accepted. Please plan ahead.**
+**Late submissions may not be accepted. Please plan.**
 
 ## Project Ideas
 
@@ -85,7 +85,7 @@ Example from a past project:
 
 ### 2. Presentation
 
-* Deliver a ~ 15 minute presentation on your project.
+* Deliver a ~ 15-minute presentation on your project.
 * You may use either:
   * Slides (traditional format), or
   * A Jupyter notebook (similar to our class style).
@@ -93,7 +93,7 @@ Example from a past project:
 Your presentation should:
 * clearly explain the problem you tackled;
 * show the numerical techniques you applied;
-* present results with relevant plots, tables; or figures
+* present results with relevant plots, tables, or figures
 * highlight your findings and insights.
 
 Each team member should be prepared to discuss their contributions.
