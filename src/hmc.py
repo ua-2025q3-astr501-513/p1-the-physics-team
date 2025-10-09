@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import jax.numpy as jnp
 from jax import grad
 from tqdm.auto import tqdm
