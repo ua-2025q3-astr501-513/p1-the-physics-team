@@ -23,7 +23,7 @@ Wednesday, October 15, 2025
 *    JAX: `pip install --upgrade "jax[cpu]"`
 *    Numpy: `pip install numpy`
 *    Matplotlib: `pip install matplotlib`
-*    Corner plotting from getdist: `pip install getdist`
+*    Plotting tools from getdist: `pip install getdist`
 
 ## How to install 
 Just like HW1, this project should have been a pip-installable Python package; i.e., `pip install -e .` should work.
