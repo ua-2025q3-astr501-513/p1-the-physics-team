@@ -19,14 +19,21 @@ Wednesday, October 15, 2025
 (in no particular order)
 
 
+## How to install 
+*    Normally, this project should have been a pip-installable Python package; i.e., `pip install -e .` should work.
+*    If using Jupyter Notebook, run: `!git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git`
+*    If using Google Colab, run:
+     ```
+     !git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git
+     %cd p1-the-physics-team
+     ```
+
 ## Required dependencies
 *    JAX: `pip install --upgrade "jax[cpu]"`
 *    Numpy: `pip install numpy`
 *    Matplotlib: `pip install matplotlib`
 *    Plotting tools from getdist: `pip install getdist`
-
-## How to install 
-Just like HW1, this project should have been a pip-installable Python package; i.e., `pip install -e .` should work.
+*    If using Jupyter Notebook or Google Colab, please add a `!` before every `pip`.
 
 ## How to run
 Working on it...
