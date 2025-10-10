@@ -1,0 +1,22 @@
+[project]
+name = "hmc"
+version = "0.1.0"
+description = "ASTR 513 Mid-Term Project: Hamiltonian Monte Carlo Implementation"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "The Physics Team"},
+]
+
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "jax[cpu]",
+    "getdist",
+]
+
+[project.urls]
+Repository = "https://github.com/ua-2025q3-astr501-513/p1-the-physics-team"
+
+[tool.setuptools.packages.find]
+where = ["src"]
