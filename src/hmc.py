@@ -1,8 +1,7 @@
 import numpy as np
 import jax.numpy as jnp
-from jax import grad
+from jax import grad, random, vmap
 from tqdm.notebook import tqdm
-from joblib import Parallel, delayed
 
 
 def Potential(q, L):
@@ -23,8 +22,6 @@ def Potential(q, L):
     """
     return -jnp.log(L(q))
 
-
-
 def Kinetic(p, minv):
     """
     Compute the kinetic energy K(p) = 0.5 * (p^T M^{-1} p) in JAX function form.
@@ -44,7 +41,6 @@ def Kinetic(p, minv):
         Kinetic energy corresponding to momentum p.
     """
     return 0.5 * p @ minv @ p   # = 0.5 * (p^T M^{-1} p)
-
 
 def Leapfrog(q0, p0, dt, Nsteps, L, Massinv):
     """
@@ -89,8 +85,7 @@ def Leapfrog(q0, p0, dt, Nsteps, L, Massinv):
     
     return q, -p  # TODO: Why negative?
 
-
-def Sampler(q0, dt, Nsteps, L, Mass, Massinv):
+def Sampler(q0, dt, Nsteps, L, Mass, Massinv, rng_key):
     """
     HMC sampler using leapfrog integrator.
 
@@ -113,7 +108,8 @@ def Sampler(q0, dt, Nsteps, L, Mass, Massinv):
         New sample position after Metropolis acceptance test.
     """
     # Draw a random momentum vector from the Normal distribution: p ~ N(0, Mass)
-    p0 = jnp.array(np.random.multivariate_normal(np.zeros_like(q0), Mass))
+    key1, key2 = random.split(rng_key)
+    p0 = random.multivariate_normal(key1, jnp.zeros_like(q0), Mass)
 
 	# Compute new (q, p) after given N steps from the leapfrog integration
     q, p = Leapfrog(q0, p0, dt, Nsteps, L, Massinv)
@@ -130,13 +126,12 @@ def Sampler(q0, dt, Nsteps, L, Mass, Massinv):
     # Reason: If ideally, our computed (q_new, p_new) has the same energy, we are
     #         very happy to accept this (q_new, p_new). Otherwise (also in most cases), 
     #         we still accept it but with a likelihood of ~ min(1, e^{-ΔH}).
-    if np.random.uniform(0,1) < np.exp(Uinit - Ufinal + Kinit - Kfinal):
-        return q  # Accept
-    else:
-        return q0 # Reject
+    accept_prob = jnp.exp(Uinit - Ufinal + Kinit - Kfinal)
+    u = random.uniform(key2)
 
+    return jnp.where(u < accept_prob, q, q0)
 
-def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0):
+def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=None):
     """
     Main Hamiltonian Monte Carlo (HMC) sampling.
 
@@ -162,69 +157,62 @@ def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0):
     np.ndarray
         Array of accepted samples after burn-in.
     """
+
+    if rng_key is None:
+        rng_key = random.PRNGKey(0)
+
     q_current = q0
     samples = []
     minv = jnp.linalg.inv(Mass) # = M^{-1}
-    for i in tqdm(range(Nsamples + burnin)):
-        q_current = Sampler(q_current, dt, Nsteps, L, Mass, minv)
+    for _ in tqdm(range(Nsamples + burnin)):
+        rng_key, subkey = random.split(rng_key)
+        q_current = Sampler(q_current, dt, Nsteps, L, Mass, minv, subkey)
         samples.append(q_current)
     
     # Remove burn-in samples
     return np.array(samples[burnin:])
 
-def Hmc_parallel(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0, Nwalkers=16):
+def Hmc_Vectorized(q0_array, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=None):
     """
-    Main Hamiltonian Monte Carlo (HMC) sampling.
+    Vectorized Hamiltonian Monte Carlo (HMC) sampling.
 
-    Parameters
-    ----------
-    q0 : array-like
-        Initial position (a parameter vector).
-    Nsamples : int
-        Number of samples.
-    dt : float
-        Time size for every leapfrog integration step.
-    Nsteps : int
-        Number of leapfrog steps per sample.
-    L : callable
-        Likelihood distribution function of position/parameter.
-    Mass : array-like
-        Mass matrix.
-    burnin : int, optional
-        Number of initial samples to discard. Default is 0.
-
-    Returns
-    -------
-    np.ndarray
-        Array of accepted samples after burn-in.
+    TODO: Add comments later
     """
-        
+
+    if rng_key is None:
+        rng_key = random.PRNGKey(0)
+
+    Nchains = q0_array.shape[0]
     minv = jnp.linalg.inv(Mass) # = M^{-1}
-    def run_chain(q0, Nsamples, dt, Nsteps, L, Mass, minv, burnin, show_pbar=False, total_samples=None):
-        q_current = q0
-        samples = []
-        
-        pbar = tqdm(total=total_samples) if show_pbar else None
-        
-        for _ in range(Nsamples + burnin):
-            q_current = Sampler(q_current, dt, Nsteps, L, Mass, minv)
-            samples.append(q_current)
-            if pbar is not None:
-                pbar.update(Nwalkers)
-        
-        if pbar is not None:
-            pbar.close()
-        
-        return np.array(samples[burnin:])
 
-    total_samples = (Nsamples//Nwalkers + burnin) * Nwalkers
+    # Vectorize the Sampler function across chains
+    sampler_vectorized = vmap(
+        lambda q, key: Sampler(q, dt, Nsteps, L, Mass, minv, key),
+        in_axes=(0, 0)
+    )
 
-    results = Parallel(n_jobs=Nwalkers) \
-        (delayed(run_chain)(q0, Nsamples//Nwalkers, dt, Nsteps, L, Mass, minv, burnin, 
-                            show_pbar=(i==0), total_samples=total_samples) \
-        for i in range(Nwalkers))
+    q_current = q0_array
+    samples = []
 
-    samples = np.concatenate(results)
+    # Progress bar tracks total samples across all chains
+    pbar = tqdm(total=(Nsamples//Nchains) * Nchains, desc="HMC sampling")
 
-    # Remove burn-in samples
-    return samples
+    for i in range(Nsamples//Nchains + burnin):
+        # Generate one key per chain
+        rng_key, *subkeys = random.split(rng_key, Nchains + 1)
+        subkeys = jnp.array(subkeys)
+
+        # Update all chains in parallel
+        q_current = sampler_vectorized(q_current, subkeys)
+        samples.append(q_current)
+
+        if i >= burnin:
+            pbar.update(Nchains)
+    
+    pbar.close()
+
+    # Remove burn-in samples and convert to array
+    samples = jnp.array(samples[burnin:])
+
+    # Reshape to (Nsamples, Ndim)
+    return samples.reshape(-1, samples.shape[-1])
