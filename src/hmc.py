@@ -1,7 +1,7 @@
 import numpy as np
 import jax.numpy as jnp
 from jax import grad
-from tqdm.auto import tqdm
+from tqdm.notebook import tqdm
 from joblib import Parallel, delayed
 
 
