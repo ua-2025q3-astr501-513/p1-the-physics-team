@@ -36,7 +36,12 @@ Wednesday, October 15, 2025
 *    If using Jupyter Notebook or Google Colab, please add a `!` before every `pip`.
 
 ## How to run
-Working on it...
+The `./src/hmc.py` contains all the Python code to test all of the given distribution functions in `./src/pdf.py`. For getting started, we suggest looking at the [Google Colab notebook](https://colab.research.google.com/drive/1JZXhBC_uQc7xqfw7SXSJTG9MGkMSPzg7?usp=sharing). 
+
+To open, click 
+<a href="https://colab.research.google.com/drive/1JZXhBC_uQc7xqfw7SXSJTG9MGkMSPzg7?usp=sharing">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" />
+</a>
 
 Mid-Term Project Tasks
 ==============
