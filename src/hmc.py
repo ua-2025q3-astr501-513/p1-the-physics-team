@@ -151,6 +151,9 @@ def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=None):
         Mass matrix.
     burnin : int, optional
         Number of initial samples to discard. Default is 0.
+    
+    rng_key: array-like, optional
+        PRNG key (an array of seeds) to be used in random sampling. Defaults to a PRNG key with seed = 0.
 
     Returns
     -------
@@ -161,11 +164,19 @@ def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=None):
     if rng_key is None:
         rng_key = random.PRNGKey(0)
 
+    # Set first q_current to be initial positions q0
     q_current = q0
     samples = []
+
+    # Compute inverse of mass matrix
     minv = jnp.linalg.inv(Mass) # = M^{-1}
+
+    # Run the sampler
     for _ in tqdm(range(Nsamples + burnin)):
+        # Generate new key
         rng_key, subkey = random.split(rng_key)
+
+        # Update q_current based upon the previous q_current, using the method outlined in Sampler
         q_current = Sampler(q_current, dt, Nsteps, L, Mass, minv, subkey)
         samples.append(q_current)
     
@@ -177,6 +188,31 @@ def Hmc_Vectorized(q0_array, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=No
     Vectorized Hamiltonian Monte Carlo (HMC) sampling.
 
     TODO: Add comments later
+
+    Parameters
+    ----------
+    q0 : array-like
+        Initial position (a parameter vector).
+    Nsamples : int
+        Number of samples.
+    dt : float
+        Time size for every leapfrog integration step.
+    Nsteps : int
+        Number of leapfrog steps per sample.
+    L : callable
+        Likelihood distribution function of position/parameter.
+    Mass : array-like
+        Mass matrix.
+    burnin : int, optional
+        Number of initial samples to discard. Default is 0.
+    
+    rng_key: array-like, optional
+        PRNG key (an array of seeds) to be used in random sampling. Defaults to a PRNG key with seed = 0.
+
+    Returns
+    -------
+    np.ndarray
+        Array of accepted samples after burn-in.
     """
 
     if rng_key is None:
