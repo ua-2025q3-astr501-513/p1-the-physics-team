@@ -8,7 +8,7 @@ ASTR 513: Statistical and Computational Methods in Astrophysics
 
 Instructors: Chi-kwan Chan, Shuo Kong
 
-Wednesday, October 15, 2025
+Monday, October 20, 2025
 
 ## Contributors
 
