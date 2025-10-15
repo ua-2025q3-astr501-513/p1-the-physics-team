@@ -19,7 +19,6 @@ Wednesday, October 22, 2025
 
 ## How to install 
 *    To install, clone this repository by doing `git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git` and then `pip install -e .`.
-     ```
 
 ## Required dependencies
 *    JAX: `pip install --upgrade "jax[cpu]"`
