@@ -3,18 +3,59 @@ import jax.numpy as jnp
 # 2D distribution functions
 
 def Gaussian(q):
-    #cov = jnp.array([[1, 0.5], [0.5, 1]])
+    """
+    A multivariate correlated Gaussian 2D probability distribution
+    with covariance [[1, 0.5], [0.5, 1]]
+
+    Parameters
+    ----------
+    q : array-like, shape (2,)
+        Position [x, y] in 2D space.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """
     covinv = jnp.array([[4./3., -2./3.],[-2./3., 4./3.]])
     return jnp.exp(-0.5 * q @ covinv @ q)
 
 def Banana(q):
+    """
+    A Banana (Rosenbrock) distribution with 
+    parameters a = 1, b = 100, and temperature
+    parameter = 200.
+
+    Parameters
+    ----------
+    q : array-like, shape (2,)
+        Position [x, y] in 2D space.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """    
     a = 1.0
     b = 100.0
     x, y = q[0], q[1]
     return jnp.exp(-((a - x)**2 + b * (y - x**2)**2) / 200.0)
 
 def sumGaussian(q):
-    #covs = jnp.eye(2)
+    """
+    A sum of three uncorrelated 2D Gaussians
+    with means mu = [3,3],[-3,0], and [-5,6]
+
+    Parameters
+    ----------
+    q : array-like, shape (2,)
+        Position [x, y] in 2D space.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """  
     covinv = jnp.eye(2)
     a = jnp.array([3, 3])
     b = jnp.array([-3, 0])
@@ -152,6 +193,20 @@ def DoubleGaussian1D(q, mu1=-1.0, mu2=1.0, sigma1=0.5, sigma2=0.5):
     return peak1 + peak2
 
 def GammaDist(q):
+    """
+    A 2D gamma distribution with
+    parameters theta = 1 and k = 2.
+
+    Parameters
+    ----------
+    q : array-like, shape (2,)
+        Position [x, y] in 2D space.
+    
+    Returns
+    -------
+    float
+        Unnormalized probability density at position q.
+    """  
     x, y = q
     k = 2.0
     theta = 1.0
