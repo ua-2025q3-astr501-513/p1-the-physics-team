@@ -181,18 +181,16 @@ def Hmc(q0, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=None):
         samples.append(q_current)
     
     # Remove burn-in samples
-    return np.array(samples[burnin:])
+    return jnp.array(samples[burnin:])
 
 def Hmc_Vectorized(q0_array, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=None):
     """
     Vectorized Hamiltonian Monte Carlo (HMC) sampling.
 
-    TODO: Add comments later
-
     Parameters
     ----------
     q0 : array-like
-        Initial position (a parameter vector).
+        Initial positions of all chains.
     Nsamples : int
         Number of samples.
     dt : float
@@ -218,10 +216,12 @@ def Hmc_Vectorized(q0_array, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=No
     if rng_key is None:
         rng_key = random.PRNGKey(0)
 
+    # Detect the number of chains to use based on the shape of q0
     Nchains = q0_array.shape[0]
     minv = jnp.linalg.inv(Mass) # = M^{-1}
 
     # Vectorize the Sampler function across chains
+    # Uses optimized C code to run Sampler on multiple chains at once
     sampler_vectorized = vmap(
         lambda q, key: Sampler(q, dt, Nsteps, L, Mass, minv, key),
         in_axes=(0, 0)
@@ -230,7 +230,9 @@ def Hmc_Vectorized(q0_array, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=No
     q_current = q0_array
     samples = []
 
-    # Progress bar tracks total samples across all chains
+    # Progress bar tracks total samples across all chains.
+    # Total number of evaluations shown is the closest number to Nsamples
+    # that is evenly divisible by Nchains
     pbar = tqdm(total=(Nsamples//Nchains) * Nchains, desc="HMC sampling")
 
     for i in range(Nsamples//Nchains + burnin):
@@ -242,6 +244,7 @@ def Hmc_Vectorized(q0_array, Nsamples, dt, Nsteps, L, Mass, burnin=0, rng_key=No
         q_current = sampler_vectorized(q_current, subkeys)
         samples.append(q_current)
 
+        # Only update the progress bar after the burn-in has been completed
         if i >= burnin:
             pbar.update(Nchains)
     
