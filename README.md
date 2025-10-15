@@ -1,6 +1,4 @@
-<a href="https://colab.research.google.com/drive/1JZXhBC_uQc7xqfw7SXSJTG9MGkMSPzg7?usp=sharing">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" width="180" />
-</a>
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ua-2025q3-astr501-513/p1-the-physics-team/blob/main/doc/theory.ipynb)
 
 Mid-Term Project
 ==============
