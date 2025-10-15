@@ -6,7 +6,7 @@ ASTR 513: Statistical and Computational Methods in Astrophysics
 
 Instructors: Chi-kwan Chan, Shuo Kong
 
-Monday, October 20, 2025
+Wednesday, October 22, 2025
 
 ## Contributors
 
@@ -18,12 +18,7 @@ Monday, October 20, 2025
 
 
 ## How to install 
-*    Normally, this project should have been a pip-installable Python package; i.e., `pip install -e .` should work.
-*    If using Jupyter Notebook, run: `!git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git`
-*    If using Google Colab, run:
-     ```
-     !git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git
-     %cd p1-the-physics-team
+*    To install, clone this repository by doing `git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git` and then `pip install -e .`.
      ```
 
 ## Required dependencies
