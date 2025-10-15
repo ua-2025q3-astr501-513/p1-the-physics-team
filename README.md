@@ -6,7 +6,7 @@ ASTR 513: Statistical and Computational Methods in Astrophysics
 
 Instructors: Chi-kwan Chan, Shuo Kong
 
-Monday, October 20, 2025
+Wednesday, October 22, 2025
 
 ## Contributors
 
@@ -18,13 +18,7 @@ Monday, October 20, 2025
 
 
 ## How to install 
-*    Normally, this project should have been a pip-installable Python package; i.e., `pip install -e .` should work.
-*    If using Jupyter Notebook, run: `!git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git`
-*    If using Google Colab, run:
-     ```
-     !git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git
-     %cd p1-the-physics-team
-     ```
+*    To install, clone this repository by doing `git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git` and then `pip install -e .`.
 
 ## Required dependencies
 *    JAX: `pip install --upgrade "jax[cpu]"`
@@ -34,12 +28,7 @@ Monday, October 20, 2025
 *    If using Jupyter Notebook or Google Colab, please add a `!` before every `pip`.
 
 ## How to run
-The `./src/hmc.py` contains all the Python code to test all of the given distribution functions in `./src/pdf.py`. For getting started, we suggest looking at the [Google Colab notebook](https://colab.research.google.com/drive/1JZXhBC_uQc7xqfw7SXSJTG9MGkMSPzg7?usp=sharing). 
-
-To open, click 
-<a href="https://colab.research.google.com/drive/1JZXhBC_uQc7xqfw7SXSJTG9MGkMSPzg7?usp=sharing">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" />
-</a>
+For getting started, we suggest looking at the [Google Colab notebook](https://colab.research.google.com/github/ua-2025q3-astr501-513/p1-the-physics-team/blob/main/doc/theory.ipynb). 
 
 Mid-Term Project Tasks
 ==============
