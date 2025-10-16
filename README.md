@@ -1,19 +1,54 @@
-# ASTR 513 Mid-Term Project
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/ua-2025q3-astr501-513/p1-the-physics-team/blob/main/doc/theory.ipynb)
+
+Mid-Term Project
+==============
+ASTR 513: Statistical and Computational Methods in Astrophysics
+
+Instructors: Chi-kwan Chan, Shuo Kong
+
+Wednesday, October 22, 2025
+
+## Contributors
+
+### The Physics Team ⚛️
+
+**Allison Colarelli**, **Jiyun Di**, **Iván Espinoza Bustamante**, **Heidi Liu**, and **Sebastian Sage**
+
+(in no particular order)
+
+
+## How to install 
+*    To install, clone this repository by doing `git clone https://github.com/ua-2025q3-astr501-513/p1-the-physics-team.git` and then `pip install -e .`.
+
+## Required dependencies
+*    JAX: `pip install --upgrade "jax[cpu]"`
+*    Numpy: `pip install numpy`
+*    Matplotlib: `pip install matplotlib`
+*    Plotting tools from getdist: `pip install getdist`
+*    If using Jupyter Notebook or Google Colab, please add a `!` before every `pip`.
+
+## How to run
+For getting started, we suggest looking at the [Google Colab notebook](https://colab.research.google.com/github/ua-2025q3-astr501-513/p1-the-physics-team/blob/main/doc/theory.ipynb). 
+
+Mid-Term Project Tasks
+==============
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nqfiwWTG)
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=20647788&assignment_repo_type=AssignmentRepo)
 
 Welcome to the repository of the **Mid-Term Project** for ASTR 513.
 This project is worth **20 points** and gives you the opportunity to
 apply the numerical techniques we have covered in the course so far.
 
 You are recommended to work in teams of 3 to 6 students.
-To form team, come up with a unique team name and put it in this
+To form a team, come up with a unique team name and put it in this
 [GitHub Classroom link](https://classroom.github.com/a/nqfiwWTG).
 
 ## Timeline & Deliverables
 
-* Prsentation dates:
+* Presentation dates:
   October 13th or 15th
 * Submission deadline:
-  By 11:59pm (Arizona tgime) on the day of your presentation
+  By 11:59 pm (Arizona time) on the day of your presentation
 * Submission platform: GitHub Classroom
 
 Your final submission should include:
@@ -25,7 +60,7 @@ Your final submission should include:
 
 Only **one submission per team** is needed.
 
-**Late submissions may not be accepted. Please plan ahead.**
+**Late submissions may not be accepted. Please plan.**
 
 ## Project Ideas
 
@@ -49,7 +84,7 @@ Example from a past project:
 
 ### 2. Presentation
 
-* Deliver a ~ 15 minute presentation on your project.
+* Deliver a ~ 15-minute presentation on your project.
 * You may use either:
   * Slides (traditional format), or
   * A Jupyter notebook (similar to our class style).
@@ -57,7 +92,7 @@ Example from a past project:
 Your presentation should:
 * clearly explain the problem you tackled;
 * show the numerical techniques you applied;
-* present results with relevant plots, tables; or figures
+* present results with relevant plots, tables, or figures
 * highlight your findings and insights.
 
 Each team member should be prepared to discuss their contributions.
